@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { callApi } from "@/lib/api-client";
 import larutanResep from "@/data/larutan_resep.json";
 
@@ -133,6 +133,74 @@ function Card({ children, className = "" }: { children: React.ReactNode; classNa
   );
 }
 
+interface DropdownOption {
+  id: string;
+  nama: string;
+  deskripsi: string;
+  ph_target: number;
+}
+
+function LarutanDropdown({ value, onChange, options }: {
+  value: string;
+  onChange: (id: string) => void;
+  options: DropdownOption[];
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const selected = options.find((o) => o.id === value) ?? options[0];
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        className={`w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg border text-sm bg-white transition-colors text-left ${
+          open ? "border-emerald-500 ring-2 ring-emerald-500/20" : "border-slate-200 hover:border-slate-300"
+        }`}
+      >
+        <div className="min-w-0">
+          <span className="font-medium text-slate-800 block truncate">{selected.nama}</span>
+        </div>
+        <svg
+          className={`w-4 h-4 text-slate-400 shrink-0 transition-transform duration-150 ${open ? "rotate-180" : ""}`}
+          viewBox="0 0 20 20" fill="currentColor"
+        >
+          <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+        </svg>
+      </button>
+
+      {open && (
+        <div className="absolute z-20 top-full left-0 right-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-lg overflow-hidden">
+          {options.map((opt) => (
+            <button
+              key={opt.id}
+              type="button"
+              onClick={() => { onChange(opt.id); setOpen(false); }}
+              className={`w-full text-left px-4 py-3 hover:bg-slate-50 transition-colors border-b border-slate-100 last:border-0 ${
+                opt.id === value ? "bg-emerald-50" : ""
+              }`}
+            >
+              <div className={`text-sm font-medium ${opt.id === value ? "text-emerald-700" : "text-slate-700"}`}>
+                {opt.nama}
+              </div>
+              <div className="text-xs text-slate-400 mt-0.5 leading-snug">{opt.deskripsi}</div>
+              <div className="text-xs text-slate-400 mt-0.5">pH target: {opt.ph_target}</div>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ─── Section A: Recipe Generator ─────────────────────────────────────────────
 
 interface RecipeGeneratorProps {
@@ -146,8 +214,6 @@ function RecipeGenerator({ onRecipeGenerated }: RecipeGeneratorProps) {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<LarutanResult | null>(null);
   const [error, setError] = useState("");
-
-  const selected = LARUTAN_OPTIONS.find((l) => l.id === idLarutan) ?? LARUTAN_OPTIONS[0];
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -184,18 +250,12 @@ function RecipeGenerator({ onRecipeGenerated }: RecipeGeneratorProps) {
       <div className="p-6">
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Larutan */}
-          <Field label="Jenis Larutan" htmlFor="id_larutan">
-            <select
-              id="id_larutan"
+          <Field label="Jenis Larutan">
+            <LarutanDropdown
               value={idLarutan}
-              onChange={(e) => { setIdLarutan(e.target.value); setResult(null); }}
-              className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-            >
-              {LARUTAN_OPTIONS.map((l) => (
-                <option key={l.id} value={l.id}>{l.nama}</option>
-              ))}
-            </select>
-            <p className="mt-1.5 text-xs text-slate-400">{selected.deskripsi}</p>
+              onChange={(id) => { setIdLarutan(id); setResult(null); }}
+              options={LARUTAN_OPTIONS}
+            />
           </Field>
 
           {/* Volume + Konsentrasi */}
