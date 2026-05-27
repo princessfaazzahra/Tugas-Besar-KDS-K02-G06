@@ -7,7 +7,7 @@ export async function callApi<T>(endpoint: string, data: unknown): Promise<T> {
       body: JSON.stringify(data),
     });
   } catch {
-    throw new Error('Tidak dapat terhubung ke server. Pastikan menggunakan "vercel dev" untuk test lokal.');
+    throw new Error('Tidak dapat terhubung ke server. Pastikan app sudah berjalan.');
   }
 
   if (!res.ok) {
@@ -16,9 +16,7 @@ export async function callApi<T>(endpoint: string, data: unknown): Promise<T> {
       const err = await res.json() as { error?: string };
       message = err.error || message;
     } catch {
-      if (res.status === 404) {
-        message = 'API endpoint tidak ditemukan. Jalankan "vercel dev" (bukan "npm run dev") untuk test Python API secara lokal.';
-      }
+      // response bukan JSON (mis. halaman error)
     }
     throw new Error(message);
   }
