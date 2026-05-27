@@ -1,0 +1,11 @@
+node_modules/
+.next/
+.vercel
+.env*.local
+*.log
+.DS_Store
+__pycache__/
+*.pyc
+Ide Tubes KDS.md
+Spek Tubes KDS.md
+README.md
