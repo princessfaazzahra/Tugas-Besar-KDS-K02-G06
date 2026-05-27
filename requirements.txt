@@ -1,2 +1,5 @@
-# Python stdlib only — no external packages needed
-# Keeping cold start minimal for Vercel serverless
+# Python stdlib only — tidak ada package eksternal yang dibutuhkan
+# Untuk menjalankan modul kalkulasi standalone:
+#   python api/larutan.py
+#   python api/buffer.py
+#   python api/molaritas.py
