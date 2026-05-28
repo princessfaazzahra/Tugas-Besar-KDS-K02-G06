@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { callApi } from "@/lib/api-client";
 import larutanResep from "@/data/larutan_resep.json";
+import LabSimulation from "@/components/LabSimulation";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -275,7 +276,7 @@ function Frac({ top, bottom, size = "base" }: { top: React.ReactNode; bottom: Re
 
 // ─── Section A: Recipe Generator ─────────────────────────────────────────────
 
-function RecipeGenerator({ onRecipeGenerated }: { onRecipeGenerated?: (id: string) => void }) {
+function RecipeGenerator({ onRecipeGenerated }: { onRecipeGenerated?: (result: LarutanResult) => void }) {
   const [idLarutan, setIdLarutan] = useState(LARUTAN_OPTIONS[0].id);
   const [volumeMl, setVolumeMl] = useState(500);
   const [konsentrasiX, setKonsentrasiX] = useState(1);
@@ -293,7 +294,7 @@ function RecipeGenerator({ onRecipeGenerated }: { onRecipeGenerated?: (id: strin
         id_larutan: idLarutan, volume_akhir_ml: volumeMl, konsentrasi_x: konsentrasiX,
       });
       setResult(res.data);
-      onRecipeGenerated?.(idLarutan);
+      onRecipeGenerated?.(res.data);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Terjadi kesalahan.");
     } finally { setLoading(false); }
@@ -734,7 +735,7 @@ function BufferResult({ result }: { result: BufferResult }) {
 // ─── Page ──────────────────────────────────────────────────────────────────────
 
 export default function LarutanPage() {
-  const [simulasiIdLarutan, setSimulasiIdLarutan] = useState<string | null>(null);
+  const [simulasiRecipe, setSimulasiRecipe] = useState<LarutanResult | null>(null);
   const router = useRouter();
 
   return (
@@ -769,11 +770,11 @@ export default function LarutanPage() {
         </div>
       </div>
 
-      <RecipeGenerator onRecipeGenerated={(id) => setSimulasiIdLarutan(id)} />
+      <RecipeGenerator onRecipeGenerated={(result) => setSimulasiRecipe(result)} />
       <BufferCalculator />
 
-      {/* Section C — Naila tambahkan simulasi drag & drop di sini */}
-      <div id="simulasi-section" data-larutan-id={simulasiIdLarutan ?? ""} />
+      {/* Section C — Simulasi Drag & Drop (Naila) */}
+      <LabSimulation recipe={simulasiRecipe} />
     </div>
   );
 }
