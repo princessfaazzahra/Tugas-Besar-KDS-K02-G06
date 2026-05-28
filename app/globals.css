@@ -29,3 +29,40 @@ html {
   background: #94a3b8;
   border-radius: 3px;
 }
+
+/* ── Lab Simulation animations ────────────────────── */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15%       { transform: translateX(-7px) rotate(-1deg); }
+  30%       { transform: translateX(7px)  rotate(1deg); }
+  45%       { transform: translateX(-5px); }
+  60%       { transform: translateX(5px); }
+  75%       { transform: translateX(-3px); }
+  90%       { transform: translateX(3px); }
+}
+.animate-shake {
+  animation: shake 0.55s ease-in-out;
+}
+
+@keyframes flash-error {
+  0%, 100% { background-color: transparent; border-color: currentColor; }
+  40%       { background-color: rgba(239, 68, 68, 0.15); border-color: rgb(239,68,68); }
+}
+.animate-flash-error {
+  animation: flash-error 0.45s ease-in-out;
+}
+
+@keyframes bounce-in {
+  0%   { transform: scale(0.85); opacity: 0; }
+  60%  { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); }
+}
+.animate-bounce-in {
+  animation: bounce-in 0.35s ease-out forwards;
+}
+
+@keyframes wave {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
