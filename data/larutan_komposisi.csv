@@ -1,0 +1,14 @@
+id_larutan,senyawa,mr,konsentrasi_mM
+pbs_1x,NaCl,58.44,137
+pbs_1x,KCl,74.55,2.7
+pbs_1x,Na2HPO4,141.96,10
+pbs_1x,KH2PO4,136.09,1.8
+tae_1x,Tris Base,121.14,40
+tae_1x,Asam Asetat,60.05,20
+tae_1x,EDTA Disodium,372.24,1
+tbe_1x,Tris Base,121.14,89
+tbe_1x,Asam Borat,61.83,89
+tbe_1x,EDTA Disodium,372.24,2
+tris_hcl_50mm,Tris Base,121.14,50
+phosphate_100mm,Na2HPO4,141.96,57.7
+phosphate_100mm,KH2PO4,136.09,42.3

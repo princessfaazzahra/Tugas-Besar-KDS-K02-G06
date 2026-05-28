@@ -1,0 +1,31 @@
+nama,rumus,mr,kategori
+Natrium Klorida,NaCl,58.44,garam
+Kalium Klorida,KCl,74.55,garam
+Kalsium Klorida,CaCl2,110.98,garam
+Magnesium Klorida,MgCl2,95.21,garam
+Natrium Fosfat Dibasa,Na2HPO4,141.96,buffer
+Kalium Fosfat Monobasa,KH2PO4,136.09,buffer
+Natrium Bikarbonat,NaHCO3,84.01,buffer
+Tris Base,C4H11NO3,121.14,buffer
+HEPES,C8H18N2O4S,238.30,buffer
+MES,C6H13NO4S,195.24,buffer
+Asam Asetat,CH3COOH,60.05,asam
+Asam Klorida,HCl,36.46,asam
+Asam Borat,H3BO3,61.83,asam
+Asam Sitrat,C6H8O7,192.12,asam
+Natrium Hidroksida,NaOH,40.00,basa
+EDTA Disodium,C10H14N2Na2O8,372.24,chelator
+Glukosa,C6H12O6,180.16,gula
+Sukrosa,C12H22O11,342.30,gula
+Sorbitol,C6H14O6,182.17,gula
+Urea,CH4N2O,60.06,denaturan
+SDS,C12H25NaO4S,288.38,deterjen
+Triton X-100,C34H62O11,647.00,deterjen
+Glisin,C2H5NO2,75.07,asam amino
+L-Glutamin,C5H10N2O3,146.14,asam amino
+Ammonium Sulfat,(NH4)2SO4,132.14,garam
+Ammonium Klorida,NH4Cl,53.49,garam
+Magnesium Sulfat,MgSO4,120.37,garam
+Dithiothreitol (DTT),C4H10O2S2,154.25,reduktor
+Beta-Mercaptoethanol,C2H6OS,78.13,reduktor
+Imidazole,C3H4N2,68.08,buffer

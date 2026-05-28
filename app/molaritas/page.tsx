@@ -4,7 +4,7 @@ import { useState, useCallback } from "react";
 import ResultCard from "@/components/ResultCard";
 import InfoTooltip from "@/components/InfoTooltip";
 import { callApi } from "@/lib/api-client";
-import senyawaData from "@/data/senyawa.json";
+import { senyawaData } from "@/lib/data-loader";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 

@@ -1,0 +1,6 @@
+id,nama,deskripsi,ph_target
+pbs_1x,PBS 1× (Phosphate Buffered Saline),Larutan isotonik universal untuk biologi sel dan biokimia. pH 7.4.,7.4
+tae_1x,TAE 1× (Tris-Acetate-EDTA),Buffer untuk elektroforesis gel agarosa DNA.,8.3
+tbe_1x,TBE 1× (Tris-Borate-EDTA),Buffer alternatif elektroforesis DNA resolusi lebih tinggi untuk fragmen kecil.,8.3
+tris_hcl_50mm,Tris-HCl Buffer 50 mM,Buffer protein umum. pH disesuaikan dengan HCl.,7.5
+phosphate_100mm,Sodium Phosphate Buffer 100 mM,Buffer pH fisiologis untuk biokimia protein.,7.0

@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef, useCallback, useMemo } from "react"
 import DragChemical from "./DragChemical";
 import BeakerDropzone from "./BeakerDropzone";
 import PreparationProgress from "./PreparationProgress";
-import senyawaData from "@/data/senyawa.json";
+import { senyawaData } from "@/lib/data-loader";
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 

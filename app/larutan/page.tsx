@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { callApi } from "@/lib/api-client";
-import larutanResep from "@/data/larutan_resep.json";
+import { larutanResep } from "@/lib/data-loader";
 import LabSimulation from "@/components/LabSimulation";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
