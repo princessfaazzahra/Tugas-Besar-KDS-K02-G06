@@ -2,18 +2,14 @@
 
 import React, { useState } from "react";
 
-// ─── Types ─────────────────────────────────────────────────────────────────────
-
 export interface BeakerDropzoneProps {
   fillPercentage: number;
   isCompleted: boolean;
-  hasError?: boolean;        // triggers shake animation
+  hasError?: boolean;      
   onDrop: (e: React.DragEvent<HTMLDivElement>) => void;
   droppedItems: string[];
   targetNama?: string;
 }
-
-// ─── Fluid color ───────────────────────────────────────────────────────────────
 
 function getFluidColor(pct: number, completed: boolean, hasError: boolean): string {
   if (hasError)   return "bg-gradient-to-t from-red-500 via-red-400 to-rose-300";
@@ -22,8 +18,6 @@ function getFluidColor(pct: number, completed: boolean, hasError: boolean): stri
   if (pct < 60)   return "bg-gradient-to-t from-sky-500 via-sky-400 to-teal-300";
   return "bg-gradient-to-t from-teal-500 via-teal-400 to-cyan-300";
 }
-
-// ─── Component ─────────────────────────────────────────────────────────────────
 
 export default function BeakerDropzone({
   fillPercentage,

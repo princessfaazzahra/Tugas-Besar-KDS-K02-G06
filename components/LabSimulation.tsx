@@ -6,8 +6,6 @@ import BeakerDropzone from "./BeakerDropzone";
 import PreparationProgress from "./PreparationProgress";
 import { senyawaData } from "@/lib/data-loader";
 
-// ─── Types ─────────────────────────────────────────────────────────────────────
-
 interface KomponenResult {
   senyawa: string;
   mr: number;
@@ -30,7 +28,6 @@ export interface LabSimulationProps {
   recipe: LarutanResult | null;
 }
 
-// Each card shown in the simulation
 interface SimChemical {
   senyawa: string;         // display name / formula
   massa?: number;          // only for real chemicals
@@ -38,8 +35,6 @@ interface SimChemical {
   kategori: string;
   isDecoy: boolean;
 }
-
-// ─── Category lookup ───────────────────────────────────────────────────────────
 
 const NAMA_KATEGORI: Record<string, string> = {
   NaCl: "garam", KCl: "garam", "Na2HPO4": "buffer", "KH2PO4": "buffer",
@@ -55,8 +50,6 @@ function getKategori(senyawa: string): string {
   return match?.kategori ?? "default";
 }
 
-// ─── Fisher-Yates shuffle ──────────────────────────────────────────────────────
-
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -65,10 +58,6 @@ function shuffle<T>(arr: T[]): T[] {
   }
   return a;
 }
-
-// ─── Decoy selector ───────────────────────────────────────────────────────────
-// Picks `count` chemicals from senyawa.json that are NOT in the recipe,
-// preferring the same categories to make it harder.
 
 function pickDecoys(recipe: LarutanResult, count: number): SimChemical[] {
   const recipeNames = new Set(recipe.komponen.map((k) => k.senyawa));
@@ -90,16 +79,12 @@ function pickDecoys(recipe: LarutanResult, count: number): SimChemical[] {
   }));
 }
 
-// ─── Decoy count by recipe size ────────────────────────────────────────────────
-
 function decoyCount(recipeSize: number): number {
   if (recipeSize === 1) return 4;
   if (recipeSize === 2) return 4;
   if (recipeSize === 3) return 3;
   return 4; // 4+ components → still add 4 decoys
 }
-
-// ─── Locked placeholder ────────────────────────────────────────────────────────
 
 function SimulasiLocked() {
   return (
@@ -121,8 +106,6 @@ function SimulasiLocked() {
   );
 }
 
-// ─── Score legend tooltip ──────────────────────────────────────────────────────
-
 function ScoreLegend() {
   return (
     <div className="rounded-xl border border-amber-100 bg-amber-50 p-4 space-y-2">
@@ -131,13 +114,11 @@ function ScoreLegend() {
         <li>✅ Drag atau tap bahan yang <strong>benar</strong> ke dalam beaker</li>
         <li>❌ Bahan yang <strong>salah</strong> → beaker berguncang, akurasi berkurang 10%</li>
         <li>⭐ Akurasi 100% = tidak ada bahan yang salah dipilih</li>
-        <li>🔢 Beberapa kartu adalah <strong>bahan pengecoh</strong> — pilih dengan teliti!</li>
+        <li>🔢 Beberapa kartu adalah<strong> bahan pengecoh</strong> — pilih dengan teliti!</li>
       </ul>
     </div>
   );
 }
-
-// ─── Main LabSimulation ────────────────────────────────────────────────────────
 
 export default function LabSimulation({ recipe }: LabSimulationProps) {
   const [droppedItems, setDroppedItems] = useState<string[]>([]);
@@ -146,18 +127,14 @@ export default function LabSimulation({ recipe }: LabSimulationProps) {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [wrongAttempts, setWrongAttempts]   = useState(0);
 
-  // Per-card error state: which card name is currently in error flash
   const [errorCard, setErrorCard]   = useState<string | null>(null);
-  // Beaker shake state
   const [beakerError, setBeakerError] = useState(false);
-  // Duplicate warning
   const [duplicateWarning, setDuplicateWarning] = useState<string | null>(null);
 
   const intervalRef   = useRef<ReturnType<typeof setInterval>  | null>(null);
   const errorTimerRef = useRef<ReturnType<typeof setTimeout>   | null>(null);
   const warnTimerRef  = useRef<ReturnType<typeof setTimeout>   | null>(null);
 
-  // ── Shuffle once per recipe ─────────────────────────────────────────────────
   const simChemicals = useMemo<SimChemical[]>(() => {
     if (!recipe) return [];
     const realCards: SimChemical[] = recipe.komponen.map((k) => ({
@@ -170,10 +147,8 @@ export default function LabSimulation({ recipe }: LabSimulationProps) {
     const decoysNeeded = decoyCount(recipe.komponen.length);
     const decoys = pickDecoys(recipe, decoysNeeded);
     return shuffle([...realCards, ...decoys]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recipe]);
 
-  // ── Reset on recipe change ──────────────────────────────────────────────────
   useEffect(() => {
     setDroppedItems([]);
     setIsCompleted(false);
@@ -188,7 +163,6 @@ export default function LabSimulation({ recipe }: LabSimulationProps) {
     if (warnTimerRef.current)  clearTimeout(warnTimerRef.current);
   }, [recipe]);
 
-  // ── Timer ───────────────────────────────────────────────────────────────────
   useEffect(() => {
     if (startTime !== null && !isCompleted) {
       intervalRef.current = setInterval(() => {
@@ -200,14 +174,12 @@ export default function LabSimulation({ recipe }: LabSimulationProps) {
     return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
   }, [startTime, isCompleted]);
 
-  // ── Drop handler ────────────────────────────────────────────────────────────
   const handleDrop = useCallback(
     (senyawa: string) => {
       if (!recipe || isCompleted) return;
 
       const isCorrect = recipe.komponen.some((k) => k.senyawa === senyawa);
 
-      // ── Wrong chemical ────────────────────────────────────────────────────
       if (!isCorrect) {
         setWrongAttempts((n) => n + 1);
 
@@ -224,7 +196,6 @@ export default function LabSimulation({ recipe }: LabSimulationProps) {
         return;
       }
 
-      // ── Duplicate correct chemical ─────────────────────────────────────────
       if (droppedItems.includes(senyawa)) {
         setDuplicateWarning(`${senyawa} sudah ada di beaker!`);
         if (warnTimerRef.current) clearTimeout(warnTimerRef.current);
@@ -232,7 +203,6 @@ export default function LabSimulation({ recipe }: LabSimulationProps) {
         return;
       }
 
-      // ── Correct & new ─────────────────────────────────────────────────────
       if (startTime === null) setStartTime(Date.now());
 
       const newDropped = [...droppedItems, senyawa];
@@ -264,7 +234,6 @@ export default function LabSimulation({ recipe }: LabSimulationProps) {
     setDuplicateWarning(null);
   }
 
-  // ── Derived ─────────────────────────────────────────────────────────────────
   const totalKomponen  = recipe?.komponen.length ?? 0;
   const fillPercentage = totalKomponen > 0 ? (droppedItems.length / totalKomponen) * 100 : 0;
   const komponenList   = recipe?.komponen.map((k) => ({

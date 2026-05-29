@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
 
-// ─── Helpers ───────────────────────────────────────────────────────────────────
-
 function r4(n: number) {
   return Math.round(n * 10000) / 10000;
 }

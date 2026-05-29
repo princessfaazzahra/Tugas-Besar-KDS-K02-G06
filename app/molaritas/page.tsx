@@ -6,8 +6,6 @@ import InfoTooltip from "@/components/InfoTooltip";
 import { callApi } from "@/lib/api-client";
 import { senyawaData } from "@/lib/data-loader";
 
-// ─── Types ───────────────────────────────────────────────────────────────────
-
 type Senyawa = { nama: string; rumus: string; mr: number; kategori: string };
 type BreakdownItem = { label: string; value: string };
 type ApiResult = {

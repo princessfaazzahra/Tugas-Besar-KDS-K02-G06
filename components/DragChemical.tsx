@@ -2,8 +2,6 @@
 
 import React from "react";
 
-// ─── Types ─────────────────────────────────────────────────────────────────────
-
 export interface DragChemicalProps {
   senyawa: string;
   massa?: number;      // undefined for decoy cards
@@ -16,8 +14,6 @@ export interface DragChemicalProps {
   onDragStart: (e: React.DragEvent<HTMLDivElement>, senyawa: string) => void;
   onTap: (senyawa: string) => void;
 }
-
-// ─── Category palette ──────────────────────────────────────────────────────────
 
 const KATEGORI_STYLE: Record<
   string,
@@ -36,8 +32,6 @@ const KATEGORI_STYLE: Record<
   default:    { bg: "bg-slate-50 hover:bg-slate-100",   border: "border-slate-200 hover:border-slate-400",   badge: "bg-slate-100 text-slate-600",   icon: "🧪", glow: "hover:shadow-slate-200"   },
 };
 
-// ─── Component ─────────────────────────────────────────────────────────────────
-
 export default function DragChemical({
   senyawa,
   massa,
@@ -52,7 +46,6 @@ export default function DragChemical({
 }: DragChemicalProps) {
   const style = KATEGORI_STYLE[kategori] ?? KATEGORI_STYLE.default;
 
-  // ── Dropped (correct) ─────────────────────────────────────────────────────
   if (isDropped) {
     return (
       <div className="relative flex items-center gap-3 px-4 py-3 rounded-xl border-2 border-emerald-300
@@ -75,7 +68,6 @@ export default function DragChemical({
     );
   }
 
-  // ── Error flash (wrong drop) ───────────────────────────────────────────────
   if (isError) {
     return (
       <div className="relative flex items-center gap-3 px-4 py-3 rounded-xl border-2 border-red-400
@@ -93,7 +85,6 @@ export default function DragChemical({
     );
   }
 
-  // ── Draggable card ────────────────────────────────────────────────────────
   return (
     <div
       draggable

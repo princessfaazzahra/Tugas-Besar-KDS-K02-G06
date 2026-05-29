@@ -6,8 +6,6 @@ import { callApi } from "@/lib/api-client";
 import { larutanResep } from "@/lib/data-loader";
 import LabSimulation from "@/components/LabSimulation";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-
 interface KomponenResult {
   senyawa: string;
   mr: number;

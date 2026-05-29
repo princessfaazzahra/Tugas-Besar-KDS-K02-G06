@@ -1,11 +1,3 @@
-"""
-Modul kalkulasi buffer Henderson-Hasselbalch.
-Algoritma Python untuk laporan IEEE — Tugas Besar KDS K02 Kelompok 6.
-
-Endpoint web diimplementasikan di app/api/buffer/route.ts (Next.js Route Handler).
-File ini dapat dijalankan langsung: python api/buffer.py
-"""
-
 import math
 
 PKA_PRESETS = {
@@ -24,26 +16,6 @@ def hitung_buffer(
     pka: float = None,
     buffer_system: str = None,
 ) -> dict:
-    """
-    Hitung komposisi buffer menggunakan persamaan Henderson-Hasselbalch.
-
-    pH = pKa + log([A-] / [HA])
-
-    Diselesaikan untuk:
-        ratio   = 10^(pH - pKa)
-        [A-]    = C_total * ratio / (1 + ratio)
-        [HA]    = C_total * 1     / (1 + ratio)
-
-    Args:
-        ph_target: pH target larutan buffer
-        konsentrasi_total_mM: Konsentrasi total buffer (mM)
-        volume_ml: Volume larutan yang akan dibuat (mL)
-        pka: nilai pKa manual (opsional jika buffer_system diberikan)
-        buffer_system: nama sistem buffer preset (Phosphate/Tris/Acetate/HEPES/MES)
-
-    Returns:
-        dict berisi konsentrasi asam dan konjugat basa dalam mM, mmol, dan mol
-    """
     if pka is None and buffer_system is not None:
         if buffer_system not in PKA_PRESETS:
             raise ValueError(f"Buffer system '{buffer_system}' tidak dikenal. Pilih: {list(PKA_PRESETS.keys())}")

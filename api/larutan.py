@@ -1,11 +1,3 @@
-"""
-Modul kalkulasi resep larutan biologis standar.
-Algoritma Python untuk laporan IEEE — Tugas Besar KDS K02 Kelompok 6.
-
-Endpoint web diimplementasikan di app/api/larutan/route.ts (Next.js Route Handler).
-File ini dapat dijalankan langsung: python api/larutan.py
-"""
-
 RESEP_DB = {
     "pbs_1x": {
         "nama": "PBS 1× (Phosphate Buffered Saline)",

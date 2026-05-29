@@ -15,8 +15,8 @@ export async function callApi<T>(endpoint: string, data: unknown): Promise<T> {
     try {
       const err = await res.json() as { error?: string };
       message = err.error || message;
-    } catch {
-      // response bukan JSON (mis. halaman error)
+    } 
+    catch {
     }
     throw new Error(message);
   }

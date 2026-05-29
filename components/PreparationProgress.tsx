@@ -2,8 +2,6 @@
 
 import React from "react";
 
-// ─── Types ─────────────────────────────────────────────────────────────────────
-
 export interface KomponenStep {
   senyawa: string;
   isDropped: boolean;
@@ -19,8 +17,6 @@ export interface PreparationProgressProps {
   onReset: () => void;
 }
 
-// ─── Helpers ───────────────────────────────────────────────────────────────────
-
 function getBadge(seconds: number, accuracy: number): { label: string; emoji: string; color: string } {
   if (accuracy === 100 && seconds < 10) return { label: "Laboran Kilat",    emoji: "⚡", color: "text-amber-600 bg-amber-50 border-amber-200"   };
   if (accuracy === 100 && seconds < 25) return { label: "Asisten Teliti",   emoji: "🧪", color: "text-sky-600 bg-sky-50 border-sky-200"         };
@@ -35,8 +31,6 @@ function formatTime(sec: number): string {
   return m > 0 ? `${m}m ${s}s` : `${s}s`;
 }
 
-// ─── Component ─────────────────────────────────────────────────────────────────
-
 export default function PreparationProgress({
   current,
   total,
@@ -48,11 +42,9 @@ export default function PreparationProgress({
 }: PreparationProgressProps) {
   const pct = total > 0 ? (current / total) * 100 : 0;
 
-  // Accuracy: each wrong attempt costs 10 points, floor at 0
   const accuracy = Math.max(0, 100 - wrongAttempts * 10);
   const badge = isCompleted ? getBadge(elapsedSeconds, accuracy) : null;
 
-  // Accuracy color
   const accuracyColor =
     accuracy === 100 ? "text-emerald-600" :
     accuracy >= 70   ? "text-sky-600"     :
