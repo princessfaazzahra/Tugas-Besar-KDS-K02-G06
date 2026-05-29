@@ -114,7 +114,7 @@ function ScoreLegend() {
         <li>✅ Drag atau tap bahan yang <strong>benar</strong> ke dalam beaker</li>
         <li>❌ Bahan yang <strong>salah</strong> → beaker berguncang, akurasi berkurang 10%</li>
         <li>⭐ Akurasi 100% = tidak ada bahan yang salah dipilih</li>
-        <li>🔢 Beberapa kartu adalah<strong> bahan pengecoh</strong> — pilih dengan teliti!</li>
+        <li>🔢 Beberapa kartu adalah <strong>bahan pengecoh</strong> — pilih dengan teliti!</li>
       </ul>
     </div>
   );
